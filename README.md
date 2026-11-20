@@ -4,7 +4,7 @@
 
 **One-line pitch:** A sourced research agent for anyone who needs a verifiable answer to a current question — journalists and researchers checking fast-moving facts get an answer where every claim traces back to a numbered, openable source, instead of a confident paragraph from training data.
 
-- **Demo video (2–3 min):** TODO — link to be added (recorded after the first live run)
+- **Demo video (2:13):** [demo/demo.mp4](https://github.com/onvavite/odsc-nebius-research-agent/blob/main/demo/demo.mp4) ([direct link](https://raw.githubusercontent.com/onvavite/odsc-nebius-research-agent/main/demo/demo.mp4)) — recorded 2026-11-20. **This is the offline demo** (stubbed search + model, labelled on screen and in the narration); no live Nebius/Tavily run is shown or claimed. A live-run cut will replace it once API keys are available; see [Live verification status](#live-verification-status).
 - **Team:** Onvavite ([@onvavite](https://github.com/onvavite), solo)
 
 ## The problem
@@ -95,7 +95,7 @@ Two failure modes, both observed (not hypothetical):
 
 ## Live verification status
 
-**Live end-to-end run not yet performed** — pending Nebius Token Factory + Tavily API keys (being obtained separately). What is verified so far, all on 2026-11-20:
+**Live end-to-end run not yet performed.** The Nebius Builder Program application was submitted on 2026-11-20 and is under manual review (decision expected within two business days, ~2026-11-24 — after the submission deadline), so no Token Factory key or credits are available before submission. Tavily sign-up is blocked by a CloudFront 403 on `app.tavily.com` (no account, no key). No live run is possible before the deadline; the submitted demo is the honest offline run. What is verified so far, all on 2026-11-20:
 
 - The real agent object builds with the cookbook stack (`deepagents` 0.7.41, `langchain-nebius` 0.1.3, `langchain-tavily` 0.2.18): `create_deep_agent(model=ChatNebius(model="MiniMaxAI/MiniMax-M3", base_url="https://api.tokenfactory.nebius.com/v1"), tools=[TavilySearch(max_results=5, search_depth="advanced")])` returns a runnable agent — verified with placeholder keys, no network call made during construction.
 - 17/17 pytest tests pass with stubbed model + stubbed search.
@@ -108,13 +108,13 @@ The first live run (one real question, real output + cost) will be recorded here
 
 | Criterion | Weight | Where to look |
 |---|---|---|
-| Sourced and verifiable answers | 30% | Example above, demo 0:00–0:45 (question, cited answer, opened sources) |
-| Works end to end | 25% | Setup, `python app.py`, demo 0:45–1:30 (live run, exit 0) |
-| Usefulness | 20% | The problem, demo 1:30–2:00 (journalist fact-check scenario) |
-| Agent design | 15% | How it works, `docs/ARCHITECTURE.md`, demo 2:00–2:30 |
-| Use of Token Factory and Tavily | 10% | Required services, demo 2:30–3:00 (model + search calls, failure case) |
+| Sourced and verifiable answers | 30% | Example above, demo 1:05–1:24 (offline demo: cited answer [1], [2], Sources list) |
+| Works end to end | 25% | Setup, `python app.py`, demo 1:05–1:24 (offline demo run, exit 0) and 1:35–1:54 (setup, 17 tests, Docker) |
+| Usefulness | 20% | The problem, demo 0:10–0:31 (journalist fact-check scenario) |
+| Agent design | 15% | How it works, `docs/ARCHITECTURE.md`, demo 0:31–1:05 (pipeline: plan → Tavily → dedupe → MiniMax-M3 → cited answer) |
+| Use of Token Factory and Tavily | 10% | Required services, demo 0:35–1:05 (Tavily advanced search, MiniMax-M3 on Token Factory) and 1:22–1:33 (failure case: insufficient evidence, missing keys) |
 
-Demo timestamps are placeholders until the video is recorded.
+Timestamps measured from the demo video (2:13 total, beats B1–B6).
 
 ## Troubleshooting
 
@@ -138,6 +138,7 @@ If a key was ever pasted into a notebook, shell history, or commit, rotate it in
 
 ```
 app.py                  # cookbook entry point: python app.py [question]
+demo/demo.mp4           # demo video (2:13, offline demo, labelled on screen)
 src/
   agent.py              # template entry point: python src/agent.py [question]
   research_agent.py     # agent construction, evidence handling, CLI
