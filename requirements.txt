@@ -1,3 +1,11 @@
-openai>=1.40
-tavily-python>=0.5
-python-dotenv>=1.0
+# ODSC x Nebius Hackathon — research agent dependencies.
+# Installed and verified 2026-11-20 on Python 3.12.3.
+# Cookbook stack: deepagents + langchain-nebius + langchain-tavily.
+deepagents==0.7.41
+langchain==1.5.2
+langchain-core==1.8.4
+langchain-nebius==0.1.3
+langchain-tavily==0.2.18
+tavily-python==0.8.5
+python-dotenv==1.2.4
+pytest==9.2.0
